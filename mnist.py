@@ -149,7 +149,10 @@ def main():
                         help='random seed (default: 1)')
     parser.add_argument('--evaluate', type=str, default='',
                         help='Model path to conduct evaluation without training')
-
+    parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
+                        help='momentum')
+    parser.add_argument('--weight-decay', '--wd', default=5e-4, type=float,
+                        metavar='W', help='weight decay (default: 5e-4)')
     args = parser.parse_args()
 
     torch.manual_seed(args.seed)
@@ -188,8 +191,9 @@ def main():
 
     model = eval(args.model + "()")
     model = model.to(device)
-    optimizer = optim.SGD(model.parameters(), lr=args.lr)
-
+    optimizer = optim.SGD(model.parameters(), lr=args.lr, 
+                        momentum=args.momentum,
+                        weight_decay=args.weight_decay)
     # Cosine Annealing Learning Rate Scheduler
     scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
 
