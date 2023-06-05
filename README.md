@@ -46,7 +46,7 @@ model = eval(args.model + "()")
 ```
 The we set the model architecture through command line argument ```--model LeNet``` or ```--model MLP```. LeNet and MLP architecture defination can be found in code. 
 
-### 3.3. Optimizater:
+### 3.3. Optimizer:
 ```py
 optimizer = optim.SGD(model.parameters(), lr=args.lr, 
                     momentum=args.momentum,
